@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+  <%- include('header'); -%>
+
+<body>
+  <%- include('navbar'); -%>
+    <div class="container">
+        <h1 class="text-center">(Name of User)'s Profile</h1><br>
+        <div class="row grid-divider well">
+            <div class="col-sm-7">
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#currently" aria-controls="currently" role="tab" data-toggle="tab">Currently Reading</a></li>
+                        <li role="presentation"><a href="#favourites" aria-controls="favourites" role="tab" data-toggle="tab">Read</a></li>
+                        <li role="presentation"><a href="#library" aria-controls="library" role="tab" data-toggle="tab">Want to read</a></li>
+            
+                    </ul>
+                    <div class="tab-content">
+                      <!--
+
+                     
+                        <div role="tabpanel" class="tab-pane active" id="currently"><br>
+                            <ol>
+                                <% readlist.forEach(item => { %>
+                                <li><a target="_blank"  href=/api/book/<%= item.book %>><%= item.title %></a></li>
+                                <% }) %>
+                            </ol>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="favourites"><br>
+                            <ol>
+                                <% readinglist.forEach(item => { %>
+                                <li><a target="_blank"  href=/api/book/<%= item.book %>><%= item.title %></a></li>
+                                <% }) %>
+                            </ol>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="library"><br>
+                            <ol>
+                                <% wantoread.forEach(item => { %>
+                                <li><a target="_blank"  href=/api/book/<%= item.book %>><%= item.title %></a></li>
+                                <% }) %>
+                            </ol>
+                        </div>
+                       -->
+                        <div role="tabpanel" class="tab-pane" id="settings"><br>
+                            <p><b>Name:</b> name</p>
+                            <p><b>Profile picture</b></p>
+                            <p><b>Date joined:</b> date</p>
+                            <p><b>Friends: </b> Friendslist</p>
+                            <div style="margin-bottom: 20px"></div>
+                            
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
