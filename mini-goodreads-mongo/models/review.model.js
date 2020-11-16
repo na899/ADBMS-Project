@@ -1,15 +1,14 @@
-const database = require('../utils/database');
 const mongoose = require('mongoose');
 
 let reviewSchema = new mongoose.Schema(
     {
         username: {
             type: String,
-            required: True
+            required: true
         },
         isbn: {
             type: String,
-            required: True
+            required: true
         },
         content: {
             type: String
@@ -20,7 +19,7 @@ let reviewSchema = new mongoose.Schema(
         },
         rating: {
             type: Number,
-            required: True
+            required: true
         }
     }
 )
