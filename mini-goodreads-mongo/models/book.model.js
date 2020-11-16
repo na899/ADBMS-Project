@@ -1,4 +1,3 @@
-const database = require('../utils/database');
 const mongoose = require('mongoose');
 
 let bookSchema = new mongoose.Schema(
@@ -41,7 +40,7 @@ let bookSchema = new mongoose.Schema(
         ],
         reviews: [
             {
-              type: Schema.Types.ObjectId,
+              type: mongoose.Schema.Types.ObjectId,
               ref: "Review"
             }
         ],
@@ -51,7 +50,7 @@ let bookSchema = new mongoose.Schema(
         },
         isbn: {
             type: String,
-            required: True
+            required: true
           }
     }
 )

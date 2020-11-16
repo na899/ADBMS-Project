@@ -1,4 +1,3 @@
-const database = require('../utils/database');
 const mongoose = require('mongoose');
 
 let readShelfSchema = new mongoose.Schema(

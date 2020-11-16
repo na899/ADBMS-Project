@@ -44,7 +44,7 @@ addReviewData = async (req, res) => {
     }
 }
 
-editBookData = async (req, res) => {
+editReviewData = async (req, res) => {
     try
     {
         const username = req.session.user.username, isbn = req.params.isbn, content = req.body.content, rating = req.body.rating

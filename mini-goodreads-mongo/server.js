@@ -9,7 +9,7 @@ const path = require('path')
 const methodOverride = require('method-override')
 const config = require('./config/config.js')
 
-const rootRouter = require('./routes/root.routes');
+//const rootRouter = require('./routes/root.routes');
 const userRouter = require('./routes/user.routes')
 const bookRouter= require('./routes/book.routes')
 const reviewRouter= require('./routes/review.routes')
@@ -45,7 +45,7 @@ app.use(function (req, res, next) {
 });
 */
 
-app.use('/', rootRouter);
+//app.use('/', rootRouter);
 app.use('/user/', userRouter);
 app.use('/book/', bookRouter);
 app.use('/review/', reviewRouter);
@@ -53,6 +53,6 @@ app.use('/readshelf/', readShelfRouter);
 app.use('/currentshelf/', currentShelfRouter);
 app.use('/toreadshelf/', toReadShelfRouter);
 
-app.listen(port, () => {
+app.listen(config.port, () => {
     console.log(`App running on port ${config.port}`)
 })
