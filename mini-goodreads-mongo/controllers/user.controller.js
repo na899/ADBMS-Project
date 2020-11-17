@@ -1,6 +1,7 @@
 const { MD5 } = require('crypto-js')
 const toReadShelfModel = require('../models/toReadShelf.model')
 const userModel = require('../models/user.model')
+const config = require('../config/config.js')
 
 
 showLogin = (req, res) => {
@@ -27,21 +28,23 @@ checkLogin = (req, res) => {
 }
 
 login = async (req, res) => {
+    console.log(req.body.username);
     if(req.body.username && req.body.password)
     {
         try {
 
-            let res = await userModel.findOne({username: username})
+            let res = await userModel.findOne({username: req.body.username})
             if(res == null) {
                 res.status(400).jsonp({message: "User not found"})
             }
             let match = null
-            if(MD5(password) == res.password)
+            if(MD5(req.body.password) == res.password)
                 match = 1
             if (!match) {
                 res.status(400).jsonp({message: "Password Mismatch"})
             }
-            req.session.user = req.body            
+            req.session.user = req.body
+            console.log("here");            
             res.redirect(config.APP_BASE_URL)
         } catch(err)
         {

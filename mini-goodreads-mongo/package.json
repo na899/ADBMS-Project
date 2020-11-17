@@ -24,7 +24,7 @@
     "crypto-js": "^4.0.0",
     "ejs": "^3.0.1",
     "ejs-locals": "^1.0.2",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "express-session": "^1.17.0",
     "helmet": "^4.2.0",
     "lodash": "4.17.15",
