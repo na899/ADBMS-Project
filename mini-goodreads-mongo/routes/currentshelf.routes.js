@@ -9,4 +9,8 @@ currentshelfRouter.get('/remove/:isbn',
     currentshelfController.removeBookCurrentShelf
 )
 
+currentshelfRouter.get('/showBooks',
+    currentshelfController.showBooksCurrentShelf
+)
+
 module.exports = currentshelfRouter

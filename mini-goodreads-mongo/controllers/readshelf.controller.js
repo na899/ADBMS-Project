@@ -28,7 +28,22 @@ removeBookReadShelf = async (req, res) => {
     }
 }
 
+showBooksReadShelf = async (req, res) => {
+    try
+    {
+        const readShelfData = await readShelfModel.find({username: req.session.user.username}).exec()
+        res.render('readShelf', {
+            data: readShelfData,
+            title: 'Read Shelf Books'
+        })
+    } catch(err) {
+        console.log(err)
+        res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+    }
+}
+
 module.exports = {
     addBookReadShelf: addBookReadShelf,
-    removeBookReadShelf: removeBookReadShelf
+    removeBookReadShelf: removeBookReadShelf,
+    showBooksReadShelf: showBooksReadShelf
 }
