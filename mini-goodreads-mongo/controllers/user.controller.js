@@ -33,19 +33,18 @@ login = async (req, res) => {
     {
         try {
 
-            let res = await userModel.findOne({username: req.body.username})
-            if(res == null) {
+            let result = await userModel.findOne({username: req.body.username})
+            if(result == null) {
                 res.status(400).jsonp({message: "User not found"})
             }
             let match = null
-            if(MD5(req.body.password) == res.password)
+            if(MD5(req.body.password) == result.password)
                 match = 1
             if (!match) {
                 res.status(400).jsonp({message: "Password Mismatch"})
             }
             req.session.user = req.body
-            console.log("here");            
-            res.redirect(config.APP_BASE_URL)
+            res.redirect(config.APP_BASE_URL + '/book')
         } catch(err)
         {
             console.log(err)
