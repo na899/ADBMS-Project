@@ -9,11 +9,11 @@ bookRouter.get('/edit/:isbn',
     bookController.editBookForm
 )
 
-bookRouter.post('/',
+bookRouter.post('/create',
     bookController.addBookData
 )
 
-bookRouter.put('/',
+bookRouter.post('/edit/:isbn',
     bookController.editBookData
 )
 

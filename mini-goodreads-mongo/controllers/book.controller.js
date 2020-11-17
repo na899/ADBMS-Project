@@ -44,7 +44,8 @@ addBookData = async (req, res) => {
             isbn  
         })
         console.log("New book has been added")
-        res.sendStatus(200)
+        res.status(200).render('success.ejs',
+        { notif:'New book has been added successfully!' })
     } catch(err) {
         console.log(err)
         res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -52,9 +53,10 @@ addBookData = async (req, res) => {
 }
 
 editBookData = async (req, res) => {
+    console.log(req.body.isbn);
     try
     {
-        const { title, authors, rating, coverPhoto, description, publishDate, publisher, genres, pages, isbn} = req.body
+        const { title, authors, rating, coverPhoto, description, publishDate, publisher, genres, pages} = req.body
         const editBook = await bookModel.findOne({isbn: req.params.isbn}).exec()
         Object.assign(editBook, {
             title,
@@ -65,13 +67,13 @@ editBookData = async (req, res) => {
             publishDate,
             publisher,
             genres,
-            pages,
-            isbn  
+            pages  
         })
         try {
             await editBook.save()
             console.log("Book has been edited")
-            res.sendStatus(200)
+            res.status(200).render('success.ejs',
+        { notif:'Book details have been edited successfully!' })
         } catch(err) {
             console.log(err)
             res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
