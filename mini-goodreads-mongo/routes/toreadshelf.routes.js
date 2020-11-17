@@ -9,4 +9,8 @@ toreadshelfRouter.get('/remove/:isbn',
     toreadshelfController.removeBookToReadShelf
 )
 
+toreadshelfRouter.get('/showBooks',
+    toreadshelfController.showBooksToReadShelf
+)
+
 module.exports = toreadshelfRouter

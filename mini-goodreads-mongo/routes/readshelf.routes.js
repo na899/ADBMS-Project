@@ -9,4 +9,8 @@ readshelfRouter.get('/remove/:isbn',
     readshelfController.removeBookReadShelf
 )
 
+readshelfRouter.get('/showBooks',
+    readshelfController.showBooksReadShelf
+)
+
 module.exports = readshelfRouter
