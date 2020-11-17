@@ -1,0 +1,28 @@
+<html>
+
+    <head>
+        <title>Admin Panel</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="../assets/css/dashboardstyle.css">
+
+    </head>
+    <h2> Hey! Welcome to the Dashboard! </h2>  
+    <div class="container" id="sampleDiv">
+		<h2 class="text-center">Recommended books from genre: Adventure</h2>
+		<div class="row d-flex align-items-stretch ">
+			<% booksData.forEach(item=>{ %>
+				<div class=" col-md-3 col-sm-6">
+					<div class="card bookDiv">
+					  	<img class="card-img-top" src="<%=item.volumeInfo.imageLinks.thumbnail%>" alt="Book thumbnail">
+					  	<div class="card-body">
+					   	 	<h5 class="card-title"><%=item.volumeInfo.title%></h5>
+		<!-- 			    	<p class="card-text"><%=item.volumeInfo.subtitle%></p> -->
+					    	<a href="/books/<%=item.id%>" class="btn btn-primary">Go somewhere</a>
+					  </div>
+				</div>	
+				</div>		
+			<% }) %>
+		</div>
+	</div>  
+</html>

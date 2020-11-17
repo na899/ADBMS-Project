@@ -17,8 +17,10 @@ const readShelfRouter= require('./routes/readshelf.routes')
 const currentShelfRouter= require('./routes/currentshelf.routes')
 const toReadShelfRouter= require('./routes/toreadshelf.routes')
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(helmet())
+app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.static(__dirname + "/public/ElaAdmin"));
+app.use(express.static(__dirname + "/public"));
+//app.use(helmet())
 app.engine('ejs', engine)
 app.set('view engine', 'ejs');
 
@@ -36,14 +38,14 @@ app.use(
 
 //app.use('/assets', express.static('assets'));
 
-/*
-app.use(session({ secret: "xu5lghxASUo7AvdacuvW", saveUninitialized: true, resave: true}));
+
+//app.use(session({ secret: "xu5lghxASUo7AvdacuvW", saveUninitialized: true, resave: true}));
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-*/
+
 
 //app.use('/', rootRouter);
 app.use('/user/', userRouter);

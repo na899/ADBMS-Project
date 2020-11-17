@@ -1,0 +1,3 @@
+[submodule "mini-goodreads-mongo/mini-goodreads-mongo/public/ElaAdmin"]
+	path = mini-goodreads-mongo/mini-goodreads-mongo/public/ElaAdmin
+	url = https://github.com/puikinsh/ElaAdmin.git
