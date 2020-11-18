@@ -34,7 +34,7 @@ showBooksToReadShelf = async (req, res) => {
         const toReadShelfData = await toReadShelfModel.find({username: req.session.user.username}).exec()
         res.render('toReadShelf', {
             data: toReadShelfData,
-            title: 'To Read Shelf Books'
+            title: 'Shelf of Books I want to Read'
         })
     } catch(err) {
         console.log(err)

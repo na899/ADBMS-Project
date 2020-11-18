@@ -34,7 +34,7 @@ showBooksCurrentShelf = async (req, res) => {
         const currentShelfData = await currentShelfModel.find({username: req.session.user.username}).exec()
         res.render('currentShelf', {
             data: currentShelfData,
-            title: 'Current Shelf Books'
+            title: 'Shelf of Books Currently Reading'
         })
     } catch(err) {
         console.log(err)
