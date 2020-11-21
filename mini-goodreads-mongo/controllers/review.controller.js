@@ -1,10 +1,12 @@
 const reviewModel = require('../models/review.model')
 const bookModel = require('../models/book.model')
 
-addReviewForm = (req, res) => {
+addReviewForm = async (req, res) => { 
     try
     {
+        const bookData = await bookModel.findOne({isbn: req.params.isbn}).exec()
         res.render('addReviewForm', {
+            bookData: bookData,
             title: 'Add Review Details'
         })
     } catch(err) {
@@ -15,11 +17,12 @@ addReviewForm = (req, res) => {
 
 editReviewForm = async (req, res) => {
     try
-    {
+    {   const bookData = await bookModel.findOne({isbn: req.params.isbn}).exec()
         const reviewToEdit = await reviewModel.findOne({"isbn": req.params.isbn, "username": req.session.user.username}).exec()
         console.log(reviewToEdit);
         res.render('editReviewForm', {
             data: reviewToEdit,
+            bookData: bookData,
             title: 'Edit Review Details'
         })
     } catch(err) {
@@ -85,15 +88,10 @@ getAllReviewsByUser = async (req, res) => {
 getAllReviewsByBook = async (req, res) => {
     try {
         const reviewData = await reviewModel.find({isbn: req.params.isbn}).exec()
-        const bookData = await bookModel.find({}).exec()
-        let bookDictionary = {}
-        for (let book in bookData)
-        {
-            bookDictionary[book.isbn] = book.title
-        }
+        const bookData = await bookModel.findOne({isbn: req.params.isbn}).exec()
         return res.render('reviews', {
             data: reviewData,
-            bookDictionary: bookDictionary,
+            bookData: bookData,
             isbn: req.params.isbn,
         })
         

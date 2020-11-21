@@ -149,7 +149,7 @@
     </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
+    <div id="right-panel" class="right-panel" style="background-image: url('https://image.freepik.com/free-photo/blurred-background-blur-bookshelves-book-store-background-education-concept_7190-15.jpg'); background-repeat: repeat;">
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
@@ -256,12 +256,22 @@
         
                 <!-- /To Do and Live Chat -->
                 <!-- Calender Chart Weather  -->
+                <br>
                 <div class ="row">
+                    <div class="col-md-3"></div>
                 <div class="col-md-6" >
                  <div class="card "> <div class="card-header"> 
                      <strong>Edit your Review</strong> <small> Help everyone know the newest book in town!</small> </div> 
                      <div class="card-body card-block"> 
-                         Review for book<br> Author<br>Genre.
+                         Review for 
+                         <p>
+                            Book: <b><%=bookData.title%></b>
+                            <br>
+                            Authors: <b><%=bookData.authors%></b>
+                            <br>
+                            Genre: <b><%=bookData.genres%></b>
+                            <br>
+                        </p>
                          <form method="post"> 
                              <div class="form-group"> 
                                  <label>Your review</label> 
