@@ -54,8 +54,8 @@ const removeBookFavourites = async (req, res) => {
 
 const showBooksFavourites = async (req, res) => {
   try {
-    const username = parseInt(request.params.id)
-    pool.query('SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Book.isbn as isbn FROM Favourites, Book where Favourites.username = $1 and Book.isbn = Favourites.isbn ORDER BY isbn ASC',[username], (error, results) => {
+    const username = req.session.user.username;
+    pool.query("SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Books.isbn as isbn FROM Favourites, Books where Favourites.username =$1 and Books.isbn = Favourites.isbn ORDER BY isbn ASC",[username], (error, results) => {
       if (error) {
         throw error
       }

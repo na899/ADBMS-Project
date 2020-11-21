@@ -52,8 +52,8 @@ const removeBookToReadShelf = async (req, res) => {
 const showBooksToReadShelf = async (req, res) => {
   try {
 
-    const username = parseInt(request.params.id)
-    pool.query('SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Book.isbn as isbn FROM WantToReadShelf, Book where WantToReadShelf.username = $1 and Book.isbn = WantToReadShelf.isbn ORDER BY isbn ASC',[username], (error, results) => {
+    const username = req.session.user.username;
+    pool.query("SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Books.isbn as isbn FROM WantToReadShelf, Books where WantToReadShelf.username =$1 and Books.isbn = WantToReadShelf.isbn ORDER BY isbn ASC",[username], (error, results) => {
       if (error) {
         throw error
       }
