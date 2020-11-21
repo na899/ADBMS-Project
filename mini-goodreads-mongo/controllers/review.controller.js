@@ -42,7 +42,9 @@ addReviewData = async (req, res) => {
             rating
         })
         console.log("New review has been added")
-        res.sendStatus(200)
+        res.status(200).render('success.ejs',
+        { notif:'Book review has been added successfully!'
+        })
     } catch(err) {
         console.log(err)
         res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -63,7 +65,9 @@ editReviewData = async (req, res) => {
         try {
             await editReview.save()
             console.log("Review has been edited")
-            res.sendStatus(200)
+            res.status(200).render('success.ejs',
+            { notif:'Book review has been edited successfully!'
+            })
         } catch(err) {
             console.log(err)
             res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -103,9 +107,11 @@ getAllReviewsByBook = async (req, res) => {
 
 removeReview = async (req, res) => {
     try {
-        await reviewModel.findOne({username: req.session.user.username, isbn: req.params.isbn}).exec()
+        await reviewModel.remove({username: req.session.user.username, isbn: req.params.isbn}).exec()
         console.log("Review deleted")
-        res.sendStatus(200)
+        res.status(200).render('success.ejs',
+        { notif:'Book review has been removed successfully!'
+        })
     } catch(err)
     {
         console.log(err)
