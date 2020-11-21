@@ -64,7 +64,7 @@ register = async (req, res) => {
             profilePhoto: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpkQeaUoawZR3nca9VClt8XQO38BxMqdRVOsfgzjYaLgzbJxjh",
             session: null
         })
-        res.redirect(config.APP_BASE_URL)
+        res.redirect(config.APP_BASE_URL + '/book')
     } catch(err)
     {
         console.log(err)
