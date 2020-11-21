@@ -328,11 +328,11 @@
                                 <button onClick="addToCurrent(<%=book.isbn%>)" class="btn-success btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Currently Reading shelf</button>
                             
                                 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-sm" style="margin:5px;"data-toggle="modal" data-target="#myModal">View more details</button>
+<button type="button" class="btn btn-info btn-sm" style="margin:5px;"data-toggle="modal" data-target="#book<%=book.isbn%>">View more details</button>
 <button onClick="removeRead(<%=book.isbn%>)" class="btn-danger btn-flat btn-sm" style="margin:5px;"> <a href="/readshelf/remove/<%=book.isbn%>" style="color:white"><i class="fa fa-times"></i> Remove from Already Read shelf</a></button>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="book<%=book.isbn%>" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
