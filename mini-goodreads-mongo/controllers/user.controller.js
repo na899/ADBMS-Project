@@ -1,5 +1,5 @@
 const { MD5 } = require('crypto-js')
-const toReadShelfModel = require('../models/toReadShelf.model')
+const reviewModel = require('../models/review.model')
 const userModel = require('../models/user.model')
 const config = require('../config/config.js')
 
@@ -74,9 +74,12 @@ register = async (req, res) => {
 showProfile = async (req, res) => {
     try {
         const profileData = await userModel.find({username: req.params.username}).exec()
+        const reviewData = await reviewModel.find({username: req.params.username}).exec()
         const profileInfo = {"name": profileData.name, "email": profileData.email, "profilePhoto": profileData.profilePhoto}
+        
         res.render('profile', { 
-            data: profileInfo,
+            profileData: profileInfo,
+            reviewData: reviewData,
             title: "User Profile"
         })
         
