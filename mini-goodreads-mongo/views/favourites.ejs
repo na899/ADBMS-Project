@@ -413,30 +413,31 @@
     <script>
        function addToRead(input){
             
-            $.ajax({url: "/toreadshelf/add/"+input, success: function(result){
+            jQuery.ajax({url: "/toreadshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Want to Read Shelf successfully!");
             }});
                   }
           
             function addToCurrent(input){
-              $.ajax({url: "/currentshelf/add/"+input, success: function(result){
+              jQuery.ajax({url: "/currentshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Current Shelf successfully!");
             }}); 
             }
           
             function addRead(input){
-              $.ajax({url: "/readShelf/add/"+input, success: function(result){
+              jQuery.ajax({url: "/readShelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar('Book added to Want Read Shelf successfully!');
             }});  
             }
 
             function removeFromFavourites(input){
-              $.ajax({url: "/favourites/remove/"+input, success: function(result){
+              jQuery.ajax({url: "/favourites/remove/"+input, success: function(result){
                 console.log("here");
                 showSnackBar('Book added to Favourites successfully!');
+                location.reload();
             }});  
             }
           

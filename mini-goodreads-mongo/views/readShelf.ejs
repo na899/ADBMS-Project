@@ -412,23 +412,24 @@
     <script>
     function addToRead(input){
             
-            $.ajax({url: "/toreadshelf/add/"+input, success: function(result){
+            jQuery.ajax({url: "/toreadshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Want to Read Shelf successfully!");
             }});
                   }
           
             function addToCurrent(input){
-              $.ajax({url: "/currentshelf/add/"+input, success: function(result){
+              jQuery.ajax({url: "/currentshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Current Shelf successfully!");
             }}); 
             }
           
             function removeRead(input){
-              $.ajax({url: "/readShelf/remove/"+input, success: function(result){
+              jQuery.ajax({url: "/readShelf/remove/"+input, success: function(result){
                 console.log("here");
                 showSnackBar('Book removed from Already Read Shelf successfully!');
+                location.reload();
             }});  
             }
           
