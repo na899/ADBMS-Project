@@ -15,7 +15,7 @@ showRegister = (req, res) => {
 logout = (req, res) => {
     req.session.destroy(function(){
     })
-    res.direct(config.APP_BASE_URL + '/login')
+    res.direct(config.APP_BASE_URL + '/user/login')
 }
 
 checkLogin = (req, res) => {
@@ -23,7 +23,7 @@ checkLogin = (req, res) => {
         next()
     } else
     {
-        return res.redirect(config.APP_BASE_URL + '/login')
+        return res.redirect(config.APP_BASE_URL + '/user/login')
     }
 }
 
