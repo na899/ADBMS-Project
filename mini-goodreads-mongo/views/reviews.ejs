@@ -234,6 +234,7 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
+                                            <th>Date</th>
                                             <th>Rating</th>
                                             <th>Review</th>
                                         </tr>
@@ -242,12 +243,17 @@
                                         <%data.forEach(review => {%>
                                         <tr>
                                             <td class="serial"><%=review.username%></td>
+                                            <td><%=review.date%></td>
                                             <!--<td class="avatar">
                                                 <div class="round-img">
                                                     <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
                                                 </div>-->
                                             </td>
-                                            <td><%=review.rating%> </td>
+                                            <td><div>
+                                                <%for(let i=0;i<review.rating;i++){%>
+                                                <span class="icon">★</span>
+                                                <%}%>
+                                            </div></td>
                                             <td>  <span class="name"><%=review.content%></span> </td>
                                         </tr>
                                     <%})%>
@@ -269,19 +275,6 @@
 </div><!-- .content -->
 
 <div class="clearfix"></div>
-
-<footer class="site-footer">
-    <div class="footer-inner bg-white">
-        <div class="row">
-            <div class="col-sm-6">
-                Copyright &copy; 2018 Ela Admin
-            </div>
-            <div class="col-sm-6 text-right">
-                Designed by <a href="https://colorlib.com">Colorlib</a>
-            </div>
-        </div>
-    </div>
-</footer>
 
 </div><!-- /#right-panel -->
 
