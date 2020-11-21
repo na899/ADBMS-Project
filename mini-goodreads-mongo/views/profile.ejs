@@ -296,7 +296,7 @@
                 
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">My Reviews</strong>
@@ -316,7 +316,11 @@
                             <tr>
                                 <td><%=review.date%></td>
                                 <td><%=review.isbn%></td>
-                                <td><%=review.rating%></td>
+                                <td><div>
+                                    <%for(let i=0;i<review.rating;i++){%>
+                                    ★
+                                    <%}%>
+                                </div></td>
                                 <td><%=review.content%></td>
                             </tr>
                             <%})%>
@@ -326,6 +330,7 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-info btn-block btn-flat m-b-30 m-t-30" style=margin:20px;"><a href="/favourites/showBooks" style="color:white">See my Favourites</a></button> 
 
 
 
