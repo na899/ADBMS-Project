@@ -16,6 +16,7 @@ editReviewForm = async (req, res) => {
     try
     {
         const reviewToEdit = await reviewModel.findOne({"isbn": req.params.isbn, "username": req.session.user.username}).exec()
+        console.log(reviewToEdit);
         res.render('editReviewForm', {
             data: reviewToEdit,
             title: 'Edit Review Details'

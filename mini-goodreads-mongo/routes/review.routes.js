@@ -3,22 +3,18 @@ const reviewController = require('../controllers/review.controller');
 const userController = require('../controllers/user.controller');
 
 reviewRouter.get('/create/:isbn',
-    userController.checkLogin,
     reviewController.addReviewForm
 )
 
 reviewRouter.get('/edit/:isbn',
-    userController.checkLogin,
     reviewController.editReviewForm
 )
 
-reviewRouter.post('/:isbn',
-    userController.checkLogin,
+reviewRouter.post('/create/:isbn',
     reviewController.addReviewData
 )
 
-reviewRouter.put('/:isbn',
-    userController.checkLogin,
+reviewRouter.post('/edit/:isbn',
     reviewController.editReviewData
 )
 
@@ -30,8 +26,7 @@ reviewRouter.get('/user/:username',
     reviewController.getAllReviewsByUser
 )
 
-reviewRouter.delete('/:isbn',
-    userController.checkLogin,
+reviewRouter.delete('/remove/:isbn',
     reviewController.removeReview
 )
 
