@@ -1,4 +1,5 @@
 const reviewModel = require('../models/review.model')
+const bookModel = require('../models/book.model')
 
 addReviewForm = (req, res) => {
     try
@@ -84,8 +85,15 @@ getAllReviewsByUser = async (req, res) => {
 getAllReviewsByBook = async (req, res) => {
     try {
         const reviewData = await reviewModel.find({isbn: req.params.isbn}).exec()
+        const bookData = await bookModel.find({}).exec()
+        let bookDictionary = {}
+        for (let book in bookData)
+        {
+            bookDictionary[book.isbn] = book.title
+        }
         return res.render('reviews', {
             data: reviewData,
+            bookDictionary: bookDictionary,
             isbn: req.params.isbn,
         })
         
