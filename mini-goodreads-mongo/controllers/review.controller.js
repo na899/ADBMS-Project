@@ -83,7 +83,10 @@ getAllReviewsByUser = async (req, res) => {
 getAllReviewsByBook = async (req, res) => {
     try {
         const reviewData = await reviewModel.find({isbn: req.params.isbn}).exec()
-        return res.send(reviewData)
+        return res.render('reviews', {
+            data: reviewData,
+            isbn: req.params.isbn,
+        })
         
     } catch(err)
     {
