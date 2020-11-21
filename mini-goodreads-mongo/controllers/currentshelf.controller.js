@@ -46,8 +46,7 @@ showBooksCurrentShelf = async (req, res) => {
             title: 'Shelf of Books Currently Reading'
         })
     } catch(err) {
-        console.log(err)
-        res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+        res.redirect(config.APP_BASE_URL + '/user/login')
     }
 }
 
