@@ -16,6 +16,7 @@ const reviewRouter= require('./routes/review.routes')
 const readShelfRouter= require('./routes/readshelf.routes')
 const currentShelfRouter= require('./routes/currentshelf.routes')
 const toReadShelfRouter= require('./routes/toreadshelf.routes')
+const favouritesRouter= require('./routes/favourites.routes')
 
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.static(__dirname + "/public/ElaAdmin"));
@@ -54,6 +55,7 @@ app.use('/review/', reviewRouter);
 app.use('/readshelf/', readShelfRouter);
 app.use('/currentshelf/', currentShelfRouter);
 app.use('/toreadshelf/', toReadShelfRouter);
+app.use('/favourites/', favouritesRouter);
 
 app.listen(config.port, () => {
     console.log(`App running on port ${config.port}`)
