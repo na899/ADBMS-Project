@@ -26,9 +26,8 @@ let bookSchema = new mongoose.Schema(
             required: true
         },
         publishDate: {
-            type: Date,
-            required: true,
-            default: Date.now
+            type: String,
+            required: true
         },
         publisher: {
             type: String
