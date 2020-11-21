@@ -71,11 +71,27 @@ register = async (req, res) => {
     }
 }
 
+showProfile = async (req, res) => {
+    try {
+        const profileData = await userModel.find({username: req.params.username}).exec()
+        const profileInfo = {"name": profileData.name, "email": profileData.email, "profilePhoto": profileData.profilePhoto}
+        res.render('profile', { 
+            data: profileInfo,
+            title: "User Profile"
+        })
+        
+    } catch(err)
+    {
+        res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+    }
+}
+
 module.exports = {
     showLogin: showLogin,
     login: login,
     checkLogin: checkLogin,
     logout: logout,
     showRegister: showRegister,
-    register: register
+    register: register,
+    showProfile: showProfile
 }

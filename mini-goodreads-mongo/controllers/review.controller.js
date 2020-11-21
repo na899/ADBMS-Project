@@ -69,9 +69,20 @@ editReviewData = async (req, res) => {
     }
 }
 
-getAllReviews = async (req, res) => {
+getAllReviewsByUser = async (req, res) => {
     try {
-        const reviewData = await reviewModel.find({}).exec()
+        const reviewData = await reviewModel.find({username: req.params.username}).exec()
+        return res.send(reviewData)
+        
+    } catch(err)
+    {
+        res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
+    }
+}
+
+getAllReviewsByBook = async (req, res) => {
+    try {
+        const reviewData = await reviewModel.find({isbn: req.params.isbn}).exec()
         return res.send(reviewData)
         
     } catch(err)
@@ -97,6 +108,7 @@ module.exports = {
     editReviewForm: editReviewForm,
     addReviewData: addReviewData,
     editReviewData: editReviewData,
-    getAllReviews: getAllReviews,
+    getAllReviewsByUser: getAllReviewsByUser,
+    getAllReviewsByBook: getAllReviewsByBook,
     removeReview: removeReview
 }

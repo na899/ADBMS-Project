@@ -22,8 +22,12 @@ reviewRouter.put('/:isbn',
     reviewController.editReviewData
 )
 
-reviewRouter.get('/:isbn',
-    reviewController.getAllReviews
+reviewRouter.get('/book/:isbn',
+    reviewController.getAllReviewsByBook
+)
+
+reviewRouter.get('/user/:username',
+    reviewController.getAllReviewsByUser
 )
 
 reviewRouter.delete('/:isbn',
