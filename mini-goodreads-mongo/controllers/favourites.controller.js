@@ -1,4 +1,6 @@
 const favouritesModel = require('../models/favourites.model')
+const config = require('../config/config.js')
+const bookModel = require('../models/book.model')
 
 addBookFavourites = async (req, res) => {
     try
@@ -31,7 +33,14 @@ removeBookFavourites = async (req, res) => {
 showBooksFavourites = async (req, res) => {
     try
     {
-        const favouritesData = await favouritesModel.find({username: req.session.user.username}).exec()
+        const favouritesInfo = await favouritesModel.find({username: req.session.user.username}, {isbn: 1, _id: 0}).exec()
+        let isbnList = []
+        for (let book of favouritesInfo)
+        {
+            isbnList.push(book["isbn"])
+        }
+        const favouritesData = await bookModel.find({isbn: { $in: isbnList }})
+        console.log(favouritesData)
         res.render('favourites', {
             data: favouritesData,
             title: 'Shelf of Favourite Books'

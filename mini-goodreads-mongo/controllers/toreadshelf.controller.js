@@ -1,4 +1,6 @@
 const toReadShelfModel = require('../models/toReadShelf.model')
+const config = require('../config/config.js')
+const bookModel = require('../models/book.model')
 
 addBookToReadShelf = async (req, res) => {
     try
@@ -31,10 +33,17 @@ removeBookToReadShelf = async (req, res) => {
 showBooksToReadShelf = async (req, res) => {
     try
     {
-        const toReadShelfData = await toReadShelfModel.find({username: req.session.user.username}).exec()
+        const toReadShelfInfo = await toReadShelfModel.find({username: req.session.user.username}, {isbn: 1, _id: 0}).exec()
+        let isbnList = []
+        for (let book of toReadShelfInfo)
+        {
+            isbnList.push(book["isbn"])
+        }
+        const toReadShelfData = await bookModel.find({isbn: { $in: isbnList }})
+        console.log(toReadShelfData)
         res.render('toReadShelf', {
             data: toReadShelfData,
-            title: 'Shelf of Books I want to Read'
+            title: 'Shelf of Books to Read'
         })
     } catch(err) {
         console.log(err)

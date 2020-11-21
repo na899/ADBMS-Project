@@ -315,7 +315,7 @@
                 <%data.forEach(book => {%>
                     <div class="col-md-4">
                         <div class="card">
-                            <img class="card-img-top" src="https://i.imgur.com/hrS2McC.png" alt="Card image cap">
+                            <img class="card-img-top" src=<%=book.coverPhoto%> alt="Card image cap">
                             <div class="card-body">
                                 <h4><%=book.title%></h4>
                                 <p class="card-text">
@@ -343,9 +343,9 @@
         <h4 class="modal-title"><%=book.title%></h4>
       </div>
       <div class="modal-body">
-          <img src="https://i.imgur.com/hrS2McC.png">
+          <img src=<%=book.coverPhoto%>>
         <p class="card-text">
-            Author: <%=book.author%>
+            Author: <%=book.authors%>
             <br>
             Genres: <%=book.genres%>
             <br>
@@ -353,7 +353,7 @@
             <br>
             Publisher: <%=book.publisher%>
             <br>
-            Published date: <%=book.publishedDate%>
+            Published date: <%=book.publishDate%>
             <br>
             No of pages: <%=book.pages%>
             <br>

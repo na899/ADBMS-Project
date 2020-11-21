@@ -1,4 +1,6 @@
 const currentShelfModel = require('../models/currentShelf.model')
+const config = require('../config/config.js')
+const bookModel = require('../models/book.model')
 
 addBookCurrentShelf = async (req, res) => {
     try
@@ -31,7 +33,14 @@ removeBookCurrentShelf = async (req, res) => {
 showBooksCurrentShelf = async (req, res) => {
     try
     {
-        const currentShelfData = await currentShelfModel.find({username: req.session.user.username}).exec()
+        const currentShelfInfo = await currentShelfModel.find({username: req.session.user.username}, {isbn: 1, _id: 0}).exec()
+        let isbnList = []
+        for (let book of currentShelfInfo)
+        {
+            isbnList.push(book["isbn"])
+        }
+        const currentShelfData = await bookModel.find({isbn: { $in: isbnList }})
+        console.log(currentShelfData)
         res.render('currentShelf', {
             data: currentShelfData,
             title: 'Shelf of Books Currently Reading'
