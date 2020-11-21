@@ -91,17 +91,12 @@ getAllReviewsByUser = async (req, res) => {
 }
 
 getAllReviewsByBook = async (req, res) => {
-    try {
+    try  {
         const reviewData = await reviewModel.find({isbn: req.params.isbn}).exec()
-        const bookData = await bookModel.find({}).exec()
-        let bookDictionary = {}
-        for (let book in bookData)
-        {
-            bookDictionary[book.isbn] = book.title
-        }
+        const bookData = await bookModel.findOne({isbn: req.params.isbn}).exec()
         return res.render('reviews', {
             data: reviewData,
-            bookDictionary: bookDictionary,
+            bookData: bookData,
             isbn: req.params.isbn,
         })
         

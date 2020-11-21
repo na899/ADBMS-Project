@@ -3,7 +3,7 @@ const userController = require('../controllers/user.controller.js')
 
 userRouter.get('/login', userController.showLogin)
 userRouter.post('/login', userController.login)
-userRouter.get('/logout', userController.checkLogin, userController.logout)
+userRouter.get('/logout', userController.logout)
 userRouter.get('/register',  userController.showRegister)
 userRouter.post('/register', userController.register)
 userRouter.get('/profile/:username', userController.showProfile)
