@@ -85,7 +85,7 @@ const getAllReviewsByUser = async (req, res) => {
       if (error) {
         throw error
       }
-      res.status(200).json(results.rows)
+      return res.send(results.rows)
     })
   } catch(err)
   {

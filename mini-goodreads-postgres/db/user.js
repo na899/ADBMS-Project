@@ -103,11 +103,32 @@ const showProfile = async (req, res) => {
       if (error) {
         throw error
       }
-      const profileData = results.rows[0];
-      const profileInfo = {"name": profileData.username, "email": profileData.email, "profilePhoto": profileData.profilePhoto}
-      res.render('profile', { 
-          data: profileInfo,
-          title: "User Profile"
+      const profileData = results.rows[0]
+      pool.query('SELECT * FROM Reviews WHERE username = $1 ORDER BY date DESC', [username], (error, result) => {
+        if (error) {
+          throw error
+        }
+        const reviewData = result.rows
+        pool.query('SELECT * FROM Books ORDER BY title ASC', (error, books) => {
+          if (error) {
+            throw error
+          }
+          const bookData = books.rows
+          console.log(bookData)
+          let bookDictionary = {}
+          for (let book in bookData){
+              bookDictionary[book.isbn] = book.title
+          }
+          console.log(bookDictionary)
+          
+          res.render('profile', {
+            profileData: profileData,
+            reviewData: reviewData,
+            bookDictionary: bookDictionary,
+            title: "User Profile"
+          })
+          
+        })
       })
     })
       

@@ -34,9 +34,9 @@ const addBookFavourites = async (req, res) => {
 const removeBookFavourites = async (req, res) => {
   try {
 
-    const id = parseInt(req.params.id)
-
-    pool.query('DELETE FROM Favourites WHERE id = $1', [id], (error, results) => {
+    const username = req.session.user.username, isbn =  req.params.isbn
+    
+    pool.query('DELETE FROM Favourites WHERE username = $1 AND isbn = $2', [username, isbn], (error, results) => {
       if (error) {
         throw error
       }
@@ -54,13 +54,13 @@ const removeBookFavourites = async (req, res) => {
 
 const showBooksFavourites = async (req, res) => {
   try {
-    const username = parseInt(req.params.id)
-    pool.query('SELECT * FROM Favourites where username = $1 ORDER BY isbn ASC',[username], (error, results) => {
+    const username = parseInt(request.params.id)
+    pool.query('SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Book.isbn as isbn FROM Favourites, Book where Favourites.username = $1 and Book.isbn = Favourites.isbn ORDER BY isbn ASC',[username], (error, results) => {
       if (error) {
         throw error
       }
       const FavouritesData = results.rows
-      res.render('Favourites', {
+      res.render('favourites', {
           data: FavouritesData,
           title: 'Shelf of Books already Read'
       })

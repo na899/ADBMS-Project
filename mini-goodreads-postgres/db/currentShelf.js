@@ -17,13 +17,12 @@ const pool = new Pool({
 const addBookCurrentShelf = async (req, res) => {
   try{
 
-    const { username, isbn } = req.body
+    const username = req.session.user.username, isbn = req.params.isbn
 
     pool.query('INSERT INTO CurrentShelf ( username, isbn) VALUES ($1, $2)', [ username, isbn], (error, results) => {
       if (error) {
         throw error
       }
-      const username = req.session.user.username, isbn = req.params.isbn
       console.log("New book has been added to your Current Shelf")
       res.sendStatus(200)
     })
@@ -37,9 +36,9 @@ const addBookCurrentShelf = async (req, res) => {
 
 const removeBookCurrentShelf = async (req, res) => {
   try {
-    const id = parseInt(req.params.id)
+    const username = req.session.user.username, isbn =  req.params.isbn
     
-    pool.query('DELETE FROM CurrentShelf WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM CurrentShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, results) => {
       if (error) {
        throw error
       }
@@ -57,8 +56,8 @@ const removeBookCurrentShelf = async (req, res) => {
 
 const showBooksCurrentShelf = async (req, res) => {
   try{
-    const username = parseInt(req.params.id)
-    pool.query('SELECT * FROM CurrentShelf where username = $1 ORDER BY isbn ASC',[username], (error, results) => {
+    const username = parseInt(request.params.id)
+    pool.query('SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Book.isbn as isbn FROM CurrentShelf, Book where CurrentShelf.username = $1 and Book.isbn = CurrentShelf.isbn ORDER BY isbn ASC',[username], (error, results) => {
       if (error) {
         throw error
       }
