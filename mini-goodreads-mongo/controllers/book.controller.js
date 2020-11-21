@@ -45,7 +45,9 @@ addBookData = async (req, res) => {
         })
         console.log("New book has been added")
         res.status(200).render('success.ejs',
-        { notif:'New book has been added successfully!' })
+        { notif:'New book has been added successfully!',
+       
+    })
     } catch(err) {
         console.log(err)
         res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -73,7 +75,8 @@ editBookData = async (req, res) => {
             await editBook.save()
             console.log("Book has been edited")
             res.status(200).render('success.ejs',
-        { notif:'Book details have been edited successfully!' })
+        { notif:'Book details have been edited successfully!'
+        })
         } catch(err) {
             console.log(err)
             res.status(500).render('error', { title: 'Error', error: 'Internal server error' })

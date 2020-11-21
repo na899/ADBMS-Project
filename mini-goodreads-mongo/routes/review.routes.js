@@ -26,7 +26,7 @@ reviewRouter.get('/user/:username',
     reviewController.getAllReviewsByUser
 )
 
-reviewRouter.delete('/remove/:isbn',
+reviewRouter.get('/remove/:isbn',
     reviewController.removeReview
 )
 
