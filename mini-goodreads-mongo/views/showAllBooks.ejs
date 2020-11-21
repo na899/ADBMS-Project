@@ -344,7 +344,7 @@
                                 <button class="btn-warning btn-flat btn-sm" style="margin:5px;"><a href="/book/edit/<%=book.isbn%>" style="color:white">Edit Book Details</a></button>
                                 <button onClick="addToCurrent(<%=book.isbn%>)" class="btn-primary btn-flat btn-sm" style="margin:5px;"style="color:white">Add to Currently reading shelf</button>
                                 <button onClick="addToRead(<%=book.isbn%>)" class="btn-dark btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Want to Read shelf</button>
-                                <button onClick="addRead(<%=book.isbn%>" class="btn-success btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Already read shelf</button>
+                                <button onClick="addRead(<%=book.isbn%>)" class="btn-success btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Already read shelf</button>
                                 <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-info btn-sm" style="margin:5px;"data-toggle="modal" data-target="#myModal">View more details</button>
 <button onClick="addToFavourites(<%=book.isbn%>)" class="btn-primary btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Your Favourites</button>
@@ -360,7 +360,7 @@
         <h4 class="modal-title"><%=book.title%></h4>
       </div>
       <div class="modal-body">
-          <img src="https://i.imgur.com/hrS2McC.png">
+          <img src=<%=book.coverPhoto%>>
         <p class="card-text">
             Author: <%=book.authors%>
             <br>
@@ -429,7 +429,6 @@
     <!--Local Stuff-->
     <script>
        function addToRead(input){
-            
             $.ajax({url: "/toreadshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Want to Read Shelf successfully!");
@@ -437,6 +436,7 @@
                   }
           
             function addToCurrent(input){
+                console.log(input)
               $.ajax({url: "/currentshelf/add/"+input, success: function(result){
                 console.log("here");
                 showSnackBar("Book added to Current Shelf successfully!");

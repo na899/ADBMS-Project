@@ -426,7 +426,7 @@
             }
 
             function removeFromToRead(input){
-              $.ajax({url: "/toreadshelf/remove"+input, success: function(result){
+              $.ajax({url: "/toreadshelf/remove/"+input, success: function(result){
                 console.log("here");
                 showSnackBar('Book removed from Want to Read successfully!');
             }});  
