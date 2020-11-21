@@ -86,7 +86,7 @@ editBookData = async (req, res) => {
 
 getAllBooks = async (req, res) => {
     try {
-        const booksData = await bookModel.find({}).populate('reviews').exec()
+        const booksData = await bookModel.find({}).exec()
         return res.render('showAllBooks', {
             booksData : booksData,
         })
