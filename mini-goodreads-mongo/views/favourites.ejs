@@ -65,6 +65,53 @@
         #mainMenu {
             background-color: #ff7f00;
         }
+                /* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
 
     </style>
 </head>
@@ -272,18 +319,18 @@
                             <div class="card-body">
                                 <h4><%=book.title%></h4>
                                 <p class="card-text">
-                                    Author: <%=book.author%>
+                                    Author: <%=book.authors%>
                                     <br>
                                     Genres: <%=book.genres%>
                                 </p>
                                 <button class="btn-danger btn-flat btn-sm" style="margin:5px;"><a href="/review/book/<%=book.isbn%>" style="color:white">Reviews</a></button>
                                 <button class="btn-warning btn-flat btn-sm" style="margin:5px;"><a href="/book/edit/<%=book.isbn%>" style="color:white">Edit Book Details</a></button>
-                                <button class="btn-primary btn-flat btn-sm" style="margin:5px;"> <a href="/currentshelf/add/<%=book.isbn%>" style="color:white">Add to Currently reading shelf</a></button>
-                                <button class="btn-dark btn-flat btn-sm" style="margin:5px;"> <a href="/toreadshelf/add/<%=book.isbn%>" style="color:white">Add to Want to Read shelf</a></button>
-                                <button class="btn-success btn-flat btn-sm" style="margin:5px;"> <a href="/readshelf/add/<%=book.isbn%>" style="color:white">Add to Already read shelf</a></button>
+                                <button onClick="addToCurrent(<%=book.isbn%>)" class="btn-primary btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Currently reading shelf</button>
+                                <button onClick="addToRead(<%=book.isbn%>)" class="btn-dark btn-flat btn-sm" style="margin:5px;" style="color:white">Add to Want to Read shelf</button>
+                                <button class="btn-success btn-flat btn-sm" style="margin:5px;" onClick="addRead(<%=book.isbn%>)" style="color:white">Add to Already read shelf</button>
                                 <!-- Trigger the modal with a button -->
 <button type="button" class="btn btn-info btn-sm" style="margin:5px;"data-toggle="modal" data-target="#myModal">View more details</button>
-<button class="btn-danger btn-flat btn-sm" style="margin:5px;"> <a href="/favourites/remove/<%=book.isbn%>" style="color:white"><i class="fa fa-times"></i> Remove from Favourites shelf</a></button>
+<button onClick="removeFromFavourites(<%=book.isbn%>)" class="btn-danger btn-flat btn-sm" style="margin:5px;" style="color:white"><i class="fa fa-times"></i> Remove from Favourites shelf</button>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -329,7 +376,7 @@
                     <%})%>
                 </div>
             </div>
-
+            <div id="snackbar">Some text some message..</div>
          
         </div>
         <!-- /.content -->
@@ -364,7 +411,44 @@
 
     <!--Local Stuff-->
     <script>
-        
+       function addToRead(input){
+            
+            $.ajax({url: "/toreadshelf/add/"+input, success: function(result){
+                console.log("here");
+                showSnackBar("Book added to Want to Read Shelf successfully!");
+            }});
+                  }
+          
+            function addToCurrent(input){
+              $.ajax({url: "/currentshelf/add/"+input, success: function(result){
+                console.log("here");
+                showSnackBar("Book added to Current Shelf successfully!");
+            }}); 
+            }
+          
+            function addRead(input){
+              $.ajax({url: "/readShelf/add/"+input, success: function(result){
+                console.log("here");
+                showSnackBar('Book added to Want Read Shelf successfully!');
+            }});  
+            }
+
+            function removeFromFavourites(input){
+              $.ajax({url: "/favourites/remove/"+input, success: function(result){
+                console.log("here");
+                showSnackBar('Book added to Favourites successfully!');
+            }});  
+            }
+          
+            function showSnackBar(notif){
+              var x = document.getElementById("snackbar");
+          
+          // Add the "show" class to DIV
+          x.className = "show";
+          x.innerHTML = notif;
+          // After 3 seconds, remove the show class from DIV
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }  
     </script>
 </body>
 </html>
