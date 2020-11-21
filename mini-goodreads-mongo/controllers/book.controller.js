@@ -99,7 +99,7 @@ getAllBooks = async (req, res) => {
 
 getBook = async (req, res) => {
     try {
-        const bookData = await bookModel.findOne({isbn: req.params.isbn}).populate('reviews').exec()
+        const bookData = await bookModel.findOne({isbn: req.params.isbn}).exec()
         return res.json(bookData)
     } catch(err)
     {

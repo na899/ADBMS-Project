@@ -2,6 +2,7 @@ const { MD5 } = require('crypto-js')
 const reviewModel = require('../models/review.model')
 const userModel = require('../models/user.model')
 const config = require('../config/config.js')
+const bookModel = require('../models/book.model')
 
 
 showLogin = (req, res) => {
@@ -75,11 +76,17 @@ showProfile = async (req, res) => {
     try {
         const profileData = await userModel.find({username: req.params.username}).exec()
         const reviewData = await reviewModel.find({username: req.params.username}).exec()
-        const profileInfo = {"name": profileData.name, "email": profileData.email, "profilePhoto": profileData.profilePhoto}
-        
+        const bookData = await bookModel.find({}).exec()
+        let bookDictionary = {}
+        for (let book in bookData)
+        {
+            bookDictionary[book.isbn] = book.title
+        }
+        console.log(bookDictionary)
         res.render('profile', { 
-            profileData: profileInfo,
+            profileData: profileData,
             reviewData: reviewData,
+            bookDictionary: bookDictionary,
             title: "User Profile"
         })
         
