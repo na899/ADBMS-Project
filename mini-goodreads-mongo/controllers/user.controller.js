@@ -74,9 +74,10 @@ register = async (req, res) => {
 
 showProfile = async (req, res) => {
     try {
-        const profileData = await userModel.find({username: req.params.username}).exec()
+        const profileData = await userModel.findOne({username: req.params.username}).exec()
         const reviewData = await reviewModel.find({username: req.params.username}).exec()
         const bookData = await bookModel.find({}).exec()
+        console.log(bookData)
         let bookDictionary = {}
         for (let book in bookData)
         {
