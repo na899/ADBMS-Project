@@ -14,9 +14,19 @@ const pool = new Pool({
 const addReviewForm = (req, res) => {
   try
   {
+    pool.query('SELECT * FROM Books where isbn = $1',[req.params.isbn], (error, result) => {
+      if (error) {
+        throw error
+      }
+
+      let bookData = result.rows[0];
+    
       res.render('addReviewForm', {
-          title: 'Add Review Details'
-      })
+        bookData: bookData,
+        title: 'Add Review Details'
+    })
+    })
+
   } catch(err) {
       console.log(err)
       res.status(500).render('error', { title: 'Error', error: 'Internal server error' })        
@@ -26,12 +36,19 @@ const addReviewForm = (req, res) => {
 const editReviewForm = async (req, res) => {
   try
   {
-      const reviewToEdit = await reviewModel.findOne({"isbn": req.params.isbn, "username": req.session.user.username}).exec()
+    
+    pool.query('SELECT * FROM Reviews WHERE username = $1 and isbn = $2', [req.session.user.username, req.params.isbn], (error, results) => {
+      if (error) {
+        throw error
+      }
+      const reviewToEdit = results.row[0];
       console.log(reviewToEdit);
       res.render('editReviewForm', {
           data: reviewToEdit,
           title: 'Edit Review Details'
       })
+    })
+      
   } catch(err) {
       console.log(err)
       res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -41,7 +58,7 @@ const editReviewForm = async (req, res) => {
 const addReviewData = async (req, res) => {
   try {
     const username = req.session.user.username, isbn = req.params.isbn, content = req.body.content, rating = req.body.rating
-
+    const date = new Date();
     pool.query('INSERT INTO Reviews (username, isbn, content, date, rating ) VALUES ($1, $2, $3, $4, $5)', [username, isbn, content, date, rating ], (error, results) => {
       if (error) {
         throw error
@@ -100,13 +117,24 @@ const getAllReviewsByBook = async (req, res) => {
       if (error) {
         throw error
       }
-      res.status(200).json(results.rows)
+      let reviewData = results.rows;
+      pool.query('SELECT * FROM Books where isbn = $1',[isbn], (error, result) => {
+        if (error) {
+          throw error
+        }
+
+        let bookData = result.rows[0];
+      
+      return res.render('reviews', {
+        data: reviewData,
+        bookData: bookData,
+        isbn: req.params.isbn,
+      })
+      })
+      
     })
 
-    return res.render('reviews', {
-      data: reviewData,
-      isbn: req.params.isbn,
-    })
+    
       
   } catch(err)
   {

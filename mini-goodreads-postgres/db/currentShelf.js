@@ -57,7 +57,7 @@ const removeBookCurrentShelf = async (req, res) => {
 const showBooksCurrentShelf = async (req, res) => {
   try{
     const username = req.session.user.username;
-    pool.query("SELECT title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, Books.isbn as isbn FROM CurrentShelf, Books where CurrentShelf.username =$1 and Books.isbn = CurrentShelf.isbn ORDER BY isbn ASC",[username], (error, results) => {      if (error) {
+    pool.query("SELECT title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, Books.isbn as isbn FROM CurrentShelf, Books where CurrentShelf.username =$1 and Books.isbn = CurrentShelf.isbn ORDER BY isbn ASC",[username], (error, results) => {      if (error) {
         throw error
       }
     const currentShelfData = results.rows

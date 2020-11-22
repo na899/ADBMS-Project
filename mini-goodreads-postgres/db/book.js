@@ -47,9 +47,9 @@ const editBookForm = async (req, res) => {
 
 const addBookData = async (req, res) => {
   try {
-    const { title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, isbn } = req.body
-
-    pool.query('INSERT INTO Books (title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, isbn) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, isbn], (error, results) => {
+    const { title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn } = req.body
+    console.log(req.body);
+    pool.query('INSERT INTO Books (title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn], (error, results) => {
       if (error) {
         throw error
       }
@@ -69,8 +69,8 @@ const editBookData = async (req, res) => {
   try {
 
     const isbn = parseInt(req.params.id)
-    const { title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages } = req.body
-    pool.query('UPDATE Books SET title = $1, authors = $2, rating = $3, coverPhoto = $4, description = $5, publishDate = $6, publisher = $7, genre = $8, pages = $9 WHERE isbn = $10', [title, authors, rating, coverPhoto, description, publishDate, publisher, genre, pages, isbn], (error, results) => {
+    const { title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages } = req.body
+    pool.query('UPDATE Books SET title = $1, authors = $2, rating = $3, coverphoto = $4, description = $5, publishdate = $6, publisher = $7, genre = $8, pages = $9 WHERE isbn = $10', [title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn], (error, results) => {
       if (error) {
         throw error
       }
