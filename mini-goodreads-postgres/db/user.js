@@ -84,7 +84,7 @@ const register = async (req, res) => {
       
     })
 
-      res.redirect(config.APP_BASE_URL)
+    res.redirect(config.APP_BASE_URL + '/user/login')
   } catch(err)
   {
       console.log(err)
