@@ -1,4 +1,6 @@
 const currentShelfModel = require('../models/currentShelf.model')
+const readShelfModel = require('../models/readShelf.model')
+const toReadShelfModel = require('../models/toReadShelf.model')
 const config = require('../config/config.js')
 const bookModel = require('../models/book.model')
 
@@ -10,6 +12,8 @@ addBookCurrentShelf = async (req, res) => {
             username,
             isbn  
         })
+        await readShelfModel.findOneAndDelete({username: req.session.user.username, isbn: req.params.isbn}).exec()
+        await toReadShelfModel.findOneAndDelete({username: req.session.user.username, isbn: req.params.isbn}).exec()
         console.log("New book has been added to your Current Shelf")
         res.sendStatus(200)
     } catch(err) {
