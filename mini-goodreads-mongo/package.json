@@ -1,0 +1,41 @@
+{
+  "name": "labyrinth-server",
+  "version": "1.0.0",
+  "description": "Labyrinth Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandy9999/Labyrinth.git"
+  },
+  "author": "SVA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandy9999/Labyrinth/issues"
+  },
+  "homepage": "https://github.com/sandy9999/Labyrinth#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^6.5.2",
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "crypto-js": "^4.0.0",
+    "ejs": "^3.0.1",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "helmet": "^4.2.0",
+    "lodash": "4.17.15",
+    "mailgun-js": "0.22.0",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.2",
+    "multer": "^1.4.2",
+    "path": "^0.12.7",
+    "qs": "^6.9.1",
+    "randomstring": "1.1.5",
+    "validator": "^10.10.0"
+  }
+}
