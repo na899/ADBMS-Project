@@ -71,7 +71,9 @@ const addReviewData = async (req, res) => {
         throw error
       }
       console.log("New review has been added")
-      res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
+      res.status(200).render('success.ejs',
+        { notif:'Book review has been added successfully!'
+        })
     })      
       
   } catch(err) {
@@ -91,7 +93,9 @@ const editReviewData = async (req, res) => {
           throw error
         }
         console.log("Review has been edited")
-        res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
+        res.status(200).render('success.ejs',
+        { notif:'Book review has been added successfully!'
+        })
       })
   } catch(err) {
       console.log(err)

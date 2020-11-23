@@ -97,7 +97,8 @@ const register = async (req, res) => {
 const showProfile = async (req, res) => {
   try {
 
-    const username = parseInt(req.params.username)
+    const username = req.params.username
+    
 
     pool.query('SELECT * FROM Users WHERE username = $1', [username], (error, results) => {
       if (error) {
@@ -114,12 +115,13 @@ const showProfile = async (req, res) => {
             throw error
           }
           const bookData = books.rows
-          console.log(bookData)
+          
           let bookDictionary = {}
-          for (let book in bookData){
+          bookData.forEach(book=>{
               bookDictionary[book.isbn] = book.title
-          }
-          console.log(bookDictionary)
+              
+          })
+         
           
           res.render('profile', {
             profileData: profileData,

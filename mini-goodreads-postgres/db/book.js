@@ -15,7 +15,8 @@ const pool = new Pool({
 const addBookForm = (req, res) => {
   try {
       res.render('addBookForm', {
-          title: 'Add Book Details'
+          title: 'Add Book Details',
+          username: req.session.user.username
       })
   } catch(err) {
       console.log(err)
@@ -34,6 +35,7 @@ const editBookForm = async (req, res) => {
       const bookToEdit = results.rows[0]
       res.render('editBookForm', {
         data: bookToEdit,
+        username: req.session.user.username,
         title: 'Edit Book Details'
       })
       
@@ -77,7 +79,7 @@ const editBookData = async (req, res) => {
     
       try {
         console.log("Book has been edited")
-        res.status(200).render('success.ejs', { notif:'Book details have been edited successfully!' })
+        res.status(200).render('success.ejs', { notif:'Book details have been edited successfully!', username: req.session.user.username })
       } catch(err) {
         console.log(err)
         res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -97,9 +99,12 @@ const getAllBooks = async (req, res) => {
         if (error) {
           throw error
         }
+        
         const booksData = results.rows
+        console.log(booksData)
         return res.render('showAllBooks', {
           booksData : booksData,
+          username: req.session.user.username
         })
       })
     } catch(err)
