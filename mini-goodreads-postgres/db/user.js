@@ -36,7 +36,7 @@ const checkLogin = (req, res) => {
 
 
 const login = async (req, res) => {
-  console.log(req.body.username);
+  console.log(req.body.username + " Logged in");
   if(req.body.username && req.body.password)
   {
       try {

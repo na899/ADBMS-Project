@@ -42,7 +42,6 @@ const editReviewForm = async (req, res) => {
         throw error
       }
       const reviewToEdit = results.rows[0];
-      console.log(reviewToEdit);
       pool.query('SELECT * FROM Books WHERE isbn = $1', [req.params.isbn], (error, result) => {
         if (error) {
           throw error

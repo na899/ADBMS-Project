@@ -20,9 +20,21 @@ const addBookToReadShelf = async (req, res) => {
       if (error) {
         throw error
       }
-      console.log("New book has been added to your To Read Shelf")
-      res.sendStatus(200)
-    })  
+      pool.query('DELETE FROM ReadShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, result) => {
+        if (error) {
+         throw error
+        }
+        pool.query('DELETE FROM CurrentShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, Results) => {
+          if (error) {
+           throw error
+          }
+          console.log("Book has been added to your Want to Read Shelf")
+          return res.redirect(config.APP_BASE_URL + 'toreadshelf/showBooks')
+        })
+      })
+      
+    })
+      
       
   } catch(err) {
       console.log(err)
@@ -32,9 +44,9 @@ const addBookToReadShelf = async (req, res) => {
 
 const removeBookToReadShelf = async (req, res) => {
   try {
-    const id = parseInt(req.params.id)
+    const username = req.session.user.username, isbn =  req.params.isbn
 
-    pool.query('DELETE FROM WantToReadShelf WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM WantToReadShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, results) => {
       if (error) {
         throw error
       }

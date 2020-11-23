@@ -50,7 +50,6 @@ const editBookForm = async (req, res) => {
 const addBookData = async (req, res) => {
   try {
     const { title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn } = req.body
-    console.log(req.body);
     pool.query('INSERT INTO Books (title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn], (error, results) => {
       if (error) {
         throw error
@@ -67,7 +66,6 @@ const addBookData = async (req, res) => {
 }
 
 const editBookData = async (req, res) => {
-  console.log(req.body.isbn);
   try {
 
     const isbn = parseInt(req.params.id)
@@ -101,7 +99,6 @@ const getAllBooks = async (req, res) => {
         }
         
         const booksData = results.rows
-        console.log(booksData)
         return res.render('showAllBooks', {
           booksData : booksData,
           username: req.session.user.username
