@@ -41,13 +41,20 @@ const editReviewForm = async (req, res) => {
       if (error) {
         throw error
       }
-      const reviewToEdit = results.row[0];
+      const reviewToEdit = results.rows[0];
       console.log(reviewToEdit);
+      pool.query('SELECT * FROM Books WHERE isbn = $1', [req.params.isbn], (error, result) => {
+        if (error) {
+          throw error
+        }
+        const bookData = result.rows[0];
       res.render('editReviewForm', {
-          data: reviewToEdit,
-          title: 'Edit Review Details'
+        data: reviewToEdit,
+        bookData: bookData,
+        title: 'Edit Review Details'
       })
     })
+  })
       
   } catch(err) {
       console.log(err)
@@ -64,7 +71,7 @@ const addReviewData = async (req, res) => {
         throw error
       }
       console.log("New review has been added")
-      res.sendStatus(200)
+      res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
     })      
       
   } catch(err) {
@@ -78,14 +85,13 @@ const editReviewData = async (req, res) => {
   try {
       const username = req.session.user.username, isbn = req.params.isbn, content = req.body.content, rating = req.body.rating
       
-      const id = parseInt(req.params.id)
-    
-      pool.query('UPDATE Reviews SET username = $1, isbn = $2, content = $3, date = $4, rating = $5  WHERE id = $6', [username, isbn, content, date, rating, id], (error, results) => {
+      const date = new Date();
+      pool.query('UPDATE Reviews SET  content = $3, date = $4, rating = $5  WHERE username = $1 and isbn = $2', [username, isbn, content, date, rating], (error, results) => {
         if (error) {
           throw error
         }
         console.log("Review has been edited")
-        res.sendStatus(200)
+        res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
       })
   } catch(err) {
       console.log(err)
