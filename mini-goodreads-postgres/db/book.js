@@ -15,7 +15,8 @@ const pool = new Pool({
 const addBookForm = (req, res) => {
   try {
       res.render('addBookForm', {
-          title: 'Add Book Details'
+          title: 'Add Book Details',
+          username: req.session.user.username
       })
   } catch(err) {
       console.log(err)
@@ -34,6 +35,7 @@ const editBookForm = async (req, res) => {
       const bookToEdit = results.rows[0]
       res.render('editBookForm', {
         data: bookToEdit,
+        username: req.session.user.username,
         title: 'Edit Book Details'
       })
       
@@ -48,7 +50,6 @@ const editBookForm = async (req, res) => {
 const addBookData = async (req, res) => {
   try {
     const { title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn } = req.body
-    console.log(req.body);
     pool.query('INSERT INTO Books (title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [title, authors, rating, coverphoto, description, publishdate, publisher, genre, pages, isbn], (error, results) => {
       if (error) {
         throw error
@@ -65,7 +66,6 @@ const addBookData = async (req, res) => {
 }
 
 const editBookData = async (req, res) => {
-  console.log(req.body.isbn);
   try {
 
     const isbn = parseInt(req.params.id)
@@ -77,7 +77,7 @@ const editBookData = async (req, res) => {
     
       try {
         console.log("Book has been edited")
-        res.status(200).render('success.ejs', { notif:'Book details have been edited successfully!' })
+        res.status(200).render('success.ejs', { notif:'Book details have been edited successfully!', username: req.session.user.username })
       } catch(err) {
         console.log(err)
         res.status(500).render('error', { title: 'Error', error: 'Internal server error' })
@@ -97,9 +97,11 @@ const getAllBooks = async (req, res) => {
         if (error) {
           throw error
         }
+        
         const booksData = results.rows
         return res.render('showAllBooks', {
           booksData : booksData,
+          username: req.session.user.username
         })
       })
     } catch(err)

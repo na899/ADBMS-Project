@@ -42,7 +42,6 @@ const editReviewForm = async (req, res) => {
         throw error
       }
       const reviewToEdit = results.rows[0];
-      console.log(reviewToEdit);
       pool.query('SELECT * FROM Books WHERE isbn = $1', [req.params.isbn], (error, result) => {
         if (error) {
           throw error
@@ -71,7 +70,9 @@ const addReviewData = async (req, res) => {
         throw error
       }
       console.log("New review has been added")
-      res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
+      res.status(200).render('success.ejs',
+        { notif:'Book review has been added successfully!'
+        })
     })      
       
   } catch(err) {
@@ -91,7 +92,9 @@ const editReviewData = async (req, res) => {
           throw error
         }
         console.log("Review has been edited")
-        res.redirect(config.APP_BASE_URL + '/review/book/'+isbn)
+        res.status(200).render('success.ejs',
+        { notif:'Book review has been added successfully!'
+        })
       })
   } catch(err) {
       console.log(err)

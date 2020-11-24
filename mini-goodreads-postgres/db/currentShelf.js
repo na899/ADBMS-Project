@@ -23,8 +23,19 @@ const addBookCurrentShelf = async (req, res) => {
       if (error) {
         throw error
       }
-      console.log("New book has been added to your Current Shelf")
-      res.sendStatus(200)
+      pool.query('DELETE FROM ReadShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, result) => {
+        if (error) {
+         throw error
+        }
+        pool.query('DELETE FROM WantToReadShelf WHERE username = $1 AND isbn = $2', [username, isbn], (error, Results) => {
+          if (error) {
+           throw error
+          }
+          console.log("Book has been added to your Current Shelf")
+          return res.redirect(config.APP_BASE_URL + 'currentshelf/showBooks')
+        })
+      })
+      
     })
       
   } catch(err) {
