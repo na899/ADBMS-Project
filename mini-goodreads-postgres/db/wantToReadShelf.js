@@ -73,7 +73,8 @@ const showBooksToReadShelf = async (req, res) => {
       const toReadShelfData = results.rows
       res.render('toReadShelf', {
           data: toReadShelfData,
-          title: 'Shelf of Books I want to Read'
+          title: 'Shelf of Books I want to Read',
+          username: username
       })
     })
       

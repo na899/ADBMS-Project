@@ -62,7 +62,8 @@ const showBooksFavourites = async (req, res) => {
       const FavouritesData = results.rows
       res.render('favourites', {
           data: FavouritesData,
-          title: 'Shelf of Books already Read'
+          username: req.session.user.username,
+          title: 'Favourites '
       })
     })
       

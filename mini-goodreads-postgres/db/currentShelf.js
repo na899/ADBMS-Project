@@ -74,6 +74,7 @@ const showBooksCurrentShelf = async (req, res) => {
     const currentShelfData = results.rows
     res.render('currentShelf', {
       data: currentShelfData,
+      username: username,
       title: 'Shelf of Books Currently Reading'
     })
   })

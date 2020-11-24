@@ -127,6 +127,7 @@ const showProfile = async (req, res) => {
             profileData: profileData,
             reviewData: reviewData,
             bookDictionary: bookDictionary,
+            username: username,
             title: "User Profile"
           })
           

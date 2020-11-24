@@ -23,6 +23,7 @@ const addReviewForm = (req, res) => {
     
       res.render('addReviewForm', {
         bookData: bookData,
+        username: req.session.user.username,
         title: 'Add Review Details'
     })
     })
@@ -50,7 +51,8 @@ const editReviewForm = async (req, res) => {
       res.render('editReviewForm', {
         data: reviewToEdit,
         bookData: bookData,
-        title: 'Edit Review Details'
+        title: 'Edit Review Details',
+        username: req.session.user.username
       })
     })
   })
@@ -138,6 +140,7 @@ const getAllReviewsByBook = async (req, res) => {
         data: reviewData,
         bookData: bookData,
         isbn: req.params.isbn,
+        username: req.session.user.username
       })
       })
       
